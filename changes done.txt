@@ -1,0 +1,245 @@
+PLYWOOD
+-------
+@1) Stock In hand -> Qty in sft and Value of Sfts
+@2) Hide-> sqrmtr in invoice & sqrft in Tax Invoice
+@3) Warehouse to be disabled from taxinvoice.
+@4) Item form - hide itemcode, divided, rename item price to "production cost", discount on rate, supplier, msl, reorder, picture, tab control
+@5) Sft and Sft Price in A) Customer Sales History B) Sales by Customer with Details C) Profit Report by Item.
+@6) Production Amount Instead of Purchase Amount in Profit Report by Item.   
+@7) TAX INVOICE Received amount is not reflecting in Item Sales Report.
+@8) Rate on Production Entry and Change Profit Report for Rate.
+@9) Total Calculation in Item Sales Report.
+
+Plywood changes
+---------------
+prodentheader - added sqft (double)
+invdetail - added mtrqty,pricesqft,totalamtsqft
+fidetail - added mtrqty,pricesqft,totalamtsqft
+item form - pricesqft added
+
+AcMacgunnigle
+det related tables update for id
+payrollsetting table add
+invview change
+
+hands comp sol
+---------------
+db changes
+---------
+added itemloc table
+entry added in screens table
+add payrollsettings table to avoid errors
+
+visitor system
+# visitor form - show when opened software
+# show visitor and search form on toolbar - remove all existing buttons - hide
+# from file menu - fin year and select database - hide
+# reports menu hide
+# rename menu basicinputs to visitor
+# hide document numbers
+# from tools menu hide everything except database
+# no need of min.max. button on visitor detail form
+# center align
+# keep template designer menu only for visitor pass
+
+TMAI changes to be done in db after 28th dec. 2018
+-------------
+# screens table (hide screenid 1022)
+# status master - entry added for intra stock
+# change groupname to TIBETAN MEDICINE from MEDICINE in item table
+# change groupname to TIBETAN MEDICINE in itemgroup
+# reports table new entry for gst report - 122
+# reports table - vat report hidden
+# customer table - increase length to 12 for gender field
+# entry added in exportmethods table, no. 79
+# entry added in reports table
+
+MELBOURNE REVIEW
+----------
+# employee form
+- eeo remove from form, w4-status not mandatory
+- add notes and other info fields
+- add "super" field for name of company
+# 12hr clock instead of 24hr for calculations of time
+# provision of lunch break deduction from total hours on work entry and on payments form
+# work entry - make work details optional
+# work entry report by date
+
+RENY CHANGES REVIEW
+# customer price list
+- rate, saleper i.e. rate and price disc in grid
+
+# delivery note
+- status added in listview and it saves as per invoice,stock return note usage
+
+# invoice form pending
+
+# item form
+- avg. rate displayed on the all record list
+- rate is made visible false if hidrate=1 in users table ( this code was not taken)
+- 
+
+# purchase order
+- lock purch rate
+
+stock return note
+- delete validation for delivery note dependency
+- dc status is updated from dc when deleted/added
+
+
+sales return
+- status not there in grid
+- price not locked
+
+stock in hand
+- rate/amount is hidden if hidepurchrate is 0
+
+user manager
+- hide purchase rate feature (similar to disable rate)
+
+reorder msl
+- hide purch rate
+
+reports
+END OF RENY CHANGES REVIEW
+
+changes done in 2806 after release - cross check if these changes also done latest copy
+# rate field added in item class in showlist
+# gstinno and 0% column added in gst report for sales/purchase excel version
+# bug fix in stock ledger - convfact problem fixed - for receipt 
+# new forms / changes - frmattendancenew
+# frmattendance
+# frmcustbaldesigner file - lblwait,lblwait2,lblnorec made public
+# discount amount * quantiity in case of only disc. amt entered - change done on 
+	frmdbnote,frminv,frmfinvoice,frmpi,frmpo,frmpos,frmquot,frmpurchjournal,frmso
+# frmemppayment - remove changes done for superid and add in customization
+# reference field updated on invoice from dc selection - frmfinvoice
+# frmimport - resized due to DPI issue
+#### supplier class change in getsupbal - to be fixed - check DJ electrical database
+# frmimportattendance - updated
+# frmitem - in editmode - updatestock called 
+# frmitem designer file - made several objects public
+# purchjournal form 
+	- convfact field updated properly for material receipt
+	- user save restriction added in save method
+	- try edit and save and see if convfact properly updates to mrdetail
+# frmrepparam - employee selection added
+# frmworkentry - added regular and total hours
+# nlistview class - code added related to MyMethod - updated because it was there in some old version but never carried in new updates
+# frmmain - payroll menu code added in loadcustommenus
+# added code related to plugin so that plugin reports can be called from reports menu also
+# added attendance form in payroll menu
+
+19-12-2018 reviewed again
+# payments class - code updated to reflect bank/cash journals in outstanding aging report (otherinv method)
+# 
+
+db changes for payroll in 2806
+# screens table entries added for payroll
+# menus table entry no. 12	
+# attendheader
+# attendance table modified 
+- added atthid
+# employee table fields added for melbourne
+- string w4status ,int exemptions,string eeocode,string eeocategory,DateTime renewaldate,string superid,string tfnno 
+- length of email id changed
+# empworkentry class/table 
+- added regularhrs, overtimehrs , starttime,endtime
+- rowver in attendheader table
+- entries added in docserial and document table
+- entry added in submenus and menus table
+
+RENY update requirements
+- update reportid in reports table before starting update
+- change icon files in custtoolbarbuttons
+- saleretheader - update the invtype to "Invoice"
+- disable all menus like export, excise invoice, cash memo etc.
+
+changes reviewed on 17/1/2019
+--------------------
+code changes
+------------
+# showlist added for bom
+# rate added in bomsubitem table
+# issueheader - showlist added
+# new form - issue return entry -
+# showlist added for mrheader
+# payrollsetting class - compid added
+# prodordheader class - showlist method updated for status
+# remove a showlist from code in item class
+# quotation popup - only noncanceled quotations are visible now
+# new form - returnable delivery note - frmrdelchal
+# reporter class modified for returnable delivery note
+# new report methods - reportcustsuppstmt, reportprodord, reportprodentry, reportshortqtyofbomitem, reportreturnabledcitems
+# baseform modified for itempopopen flag and other item popup related changes
+# frmbom 
+	- added 3rd grid for adding subitems below second grid
+	- added rate for all grids
+	- flags added in appsetting for disabling 3rd grid (showsubitem, showsubitem2)
+	- virtual initlv added for form_load listview data load
+# frmcust - supplier checkbox added
+# frmcustsupstmt form added
+# frmdelchal - setitem method added
+# itempopup control added on quotation,so,pi,invoice,finvoice,po,stock receipt,cash memo,purch journal,del note, stock return note
+# frmissueentry 
+	- only scheduled production orders shown
+	- production order is selected then show items from production order
+# stock return note - notetype added and dc no. drop down code modified to select dc or rdc based on the note type 
+# production order - when bom is selected, it shows qty of all sub items now - fldbomno_dropdown
+# frmpurjour 
+- stock receipt drop down added
+- #confact changed to convfact in grid
+# frmquot - option added to cancel quotation
+# frmrepparam - drop down added for production order, prod entry, bom no, sono, 
+# frmsendmsg - modified to send bulk sms
+# frmcust,frmsup,frmcomp - validation added to uppercase the gstin no.
+# frmmsel - tab control removed.
+# frmbankjournal - check print bug fix - it was giving error due to wrong column index
+# check if all new menus added as per forms
+# frmrebom - new form to reorder bom items
+
+db changes
+----------
+@# bomsubitem - added rate
+@# new tables - issueretheader, issueretdetail
+@# new table - bomdetail2 
+@# supplier - custid added
+@# payrollsetting - timeformat added
+@# mretheader - notetype string added
+#@ payrollsetting - compid added
+@# new tables added - rdcheader, rdcdetail, rdcdetaildet, rdcdetailbatches
+@# entries in reports, screens table for new forms and reports
+@# work entry - changed data type for start/endtime
+# entries added in appsettings table (showstockoninv, showsubitem2, showreconpjour
+# frminvoice, frmfinvoice, frmpos - curstock option added in grid - optional (edit, setitem and initgrid)
+@# entries to be added in reports table for bom shortage, prod ord, and prod entry report
+# entry in reptemplate and docserial, document table for returnable dc and stock issue return
+
+STD version 2807 after 7/1/2019 
+---------------
+db changes
+----------
+bomsubitem - rate added
+bomdetail2 table added
+payrollsetting - timeformat added
+supplier table - custid added
+
+code changes
+-----------
+# methods added for production order, production entrry and customersupplierledger and shortageqty in reportmethods class
+# when new customer is saved then supplier entry is added automatically if checkbox is true -
+FULL REVIEW - frmbom
+FULL REVIEW - frmcashmemo - change done for the popup code to be done in all other forms 
+FULL REVIEW frmsendmsg - ability added to send sms to multiple customer/supplier -
+frmcust - added method to save supplier entry and a checkbox to decide whether it is also supplier
+auto caps on gstinno on customer,supplier and company form
+frmdelchal - designer file - lot of fields made public
+timeformat also added in cicustsettings class
+frminvoice, frmfinvoice, frmpos - curstock option added in grid - optional (edit, setitem and initgrid)
+frmprodord - fldbomnodropdown - code review
+frmpurchjour - convfact added in grid
+frmquot - cancel menu added in context menu
+frmrepparam - production order and product group popup added
+frmmsel - tab removed only listview kept 
+frmrebom - new form to order po based on bom 
+--------------------
